@@ -1,3 +1,3 @@
 <?php
 
-return ['auth/(:any)' => 'anstech-auth/default/$1'];
+return ['auth/(:any)' => 'auth/default/$1'];

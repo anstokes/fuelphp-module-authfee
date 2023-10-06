@@ -136,7 +136,7 @@ class Login extends FormHelper
     public static function loggedInAvatar()
     {
         // Avatar handled via profile package, when enabled
-        if (Package::loaded('anstech-profile') && ($avatar = \Anstech\Profile\Avatar::avatar(static::loggedInId()))) {
+        if (Package::loaded('profile') && ($avatar = \Anstech\Profile\Avatar::avatar(static::loggedInId()))) {
             return $avatar;
         }
 
@@ -170,7 +170,7 @@ class Login extends FormHelper
 
     public static function loggedInName($default = null)
     {
-        if (Package::loaded('anstech-profile')) {
+        if (Package::loaded('profile')) {
             if ($name = \Anstech\Profile\Model\Profile::value('realname')) {
                 return $name;
             }
