@@ -5,13 +5,13 @@ namespace AuthFee\Controller;
 use Auth\Auth;
 use AuthFee\App;
 use AuthFee\Login;
+use Fuel\Core\Asset;
 use Fuel\Core\Controller;
 use Fuel\Core\Input;
 use Fuel\Core\Response;
 use Fuel\Core\Request;
 use Fuel\Core\Session;
 use Parser\View;
-use Parser\View_Mustache;
 
 class Root extends Controller
 {
@@ -127,7 +127,6 @@ class Root extends Controller
 
         // Core scripts
         $scripts = [
-            'app.js',
             'json5.js',
             'validation.js',
         ];
@@ -137,14 +136,28 @@ class Root extends Controller
             'bootstrap.min.css',
             'icons.min.css',
             'app.min.css',
+            'rounded.css',
         ];
+
+        // Use assets from theme
+        $themePath = 'assets' . DS . 'themes' . DS . 'unikit' . DS;
+        Asset::add_path($themePath . 'css', 'css');
+        Asset::add_path($themePath . 'js', 'js');
 
         return Response::forge(
             View::forge('template.mustache', [
                 'content'     => $content,
-                'scripts'     => array_map(['\\Fuel\\Core\\Asset', 'js'], $scripts),
-                'stylesheets' => array_map(['\\Fuel\\Core\\Asset', 'css'], $stylesheets),
+                'scripts'     => array_merge(
+                    array_map(['\\Fuel\\Core\\Asset', 'js'], $scripts),
+                    []
+                ),
+                'stylesheets' => array_merge(
+                    array_map(['\\Fuel\\Core\\Asset', 'css'], $stylesheets),
+                    [],
+                ),
                 'title'       => App::parameter('title'),
+                'description' => App::parameter('description'),
+                'icon'        => App::parameter('icon'),
             ], false),
             $status
         );

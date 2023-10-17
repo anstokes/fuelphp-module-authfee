@@ -17,7 +17,7 @@ class App
             $default = Config::load(strtolower(__NAMESPACE__) . '::app.example.php', 'app');
 
             // TODO - show configuration instructions
-            throw new ErrorException('AuthFee module is incorrectly configured.');
+            throw new ErrorException('AuthFEE module is incorrectly configured.');
         }
 
         return $configuration;
